@@ -26,7 +26,7 @@ public class MatchersDemo {
         List<String> myList = new ArrayList<>(Arrays.asList("apples", "bananas"));
         assertThat(myList, hasItem("bananas"));
 
-        String s = "yellowbananasfrompanama";
+        String s = "yellowbananasfrompanama!";
         assertThat(s, containsString("bananas"));
     }
 

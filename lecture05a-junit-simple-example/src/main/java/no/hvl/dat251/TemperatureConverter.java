@@ -8,7 +8,7 @@ public class TemperatureConverter {
 
 		if (tempInCelcius < ABSOLUTE_ZERO_IN_CELCIUS) {
 			throw new IllegalArgumentException(
-					"The temperature can not be below the absolute zero.");
+					"The temperature can not be below the absolute zero. ");
 		}
 		return tempInCelcius - ABSOLUTE_ZERO_IN_CELCIUS;
 	}
