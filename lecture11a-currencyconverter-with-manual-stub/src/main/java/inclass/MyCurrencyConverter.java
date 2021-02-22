@@ -5,7 +5,11 @@ import java.util.Currency;
 
 public class MyCurrencyConverter {
 
-	private RealTimeExchangeRates exchangeRates = new RealTimeExchangeRates();
+	private ExchangeRateService ers = new RealTimeExchangeRates();
+
+	public void setExchangeRateServide(ExchangeRateService ers) {
+		this.ers = ers;
+	}
 
 	/** Converts an amount from one currency to another. If the 
 	 *  exchange rate is unavailable, the value 0.0 is returned. 
@@ -14,7 +18,7 @@ public class MyCurrencyConverter {
 
 		ExchangeRate exRate;
 		try {
-			exRate = exchangeRates.getRate(from.getCurrencyCode(), to.getCurrencyCode());
+			exRate = ers.getRate(from.getCurrencyCode(), to.getCurrencyCode());
 		} catch (IOException e) {
 			return 0;
 		}

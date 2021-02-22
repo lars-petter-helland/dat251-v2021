@@ -9,7 +9,7 @@ import java.net.URL;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
-public class RealTimeExchangeRates {
+public class RealTimeExchangeRates implements ExchangeRateService {
 	
     // Home and documentation:
 	// https://currency-api.appspot.com/
@@ -25,6 +25,7 @@ public class RealTimeExchangeRates {
 	//	"amount":0.9,
 	//	"message":""}
 	
+	@Override
 	public ExchangeRate getRate(String source, String target) 
 			throws IOException, JsonSyntaxException {
         

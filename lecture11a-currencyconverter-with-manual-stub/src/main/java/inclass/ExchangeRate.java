@@ -13,4 +13,8 @@ public class ExchangeRate {
 	double amount;
 	String message;
 
+	public ExchangeRate(double rate) {
+		this.rate = rate;
+	}
+	
 }
