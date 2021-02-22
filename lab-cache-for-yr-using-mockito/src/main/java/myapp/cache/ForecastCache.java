@@ -20,8 +20,9 @@ public class ForecastCache {
 	public Forecast getForecastFor(String location) {
 		Forecast f = cache.get(location);
 		if (f == null || timestampService.hasExpired(f.getTimestamp())) {
-			cache.put(location, forecastFetcher.fetchForecastFor(location));
+			f = forecastFetcher.fetchForecastFor(location);
+			cache.put(location, f);
 		}
-		return cache.get(location);
+		return f;
 	}
 }
