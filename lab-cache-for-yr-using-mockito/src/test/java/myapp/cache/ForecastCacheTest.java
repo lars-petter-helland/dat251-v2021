@@ -1,7 +1,7 @@
 package myapp.cache;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -26,12 +26,10 @@ public class ForecastCacheTest {
 	
 	private static final String BERGEN = "Bergen";
 	private static final String OSLO = "Oslo";
+
 	private static final Forecast FORECAST1_FROM_BERGEN = new Forecast(BERGEN);
 	private static final Forecast FORECAST2_FROM_BERGEN = new Forecast(BERGEN);
 	private static final Forecast FORECAST_FROM_OSLO = new Forecast(OSLO);
-	
-		// ... Maybe you can set up some test data to be reused in the tests?
-
 
 	// --- Instance variables ------------------------------------------------
 
@@ -95,9 +93,8 @@ public class ForecastCacheTest {
 		//Fetching one forecast for Bergen and storing in cache
 		forecastCache.getForecastFor(BERGEN);
 		
-		when(mockedTimestampService.hasExpired(any(Timestamp.class)))
-				.thenReturn(true);
-		
+		when(mockedTimestampService.hasExpired(any())).thenReturn(true);
+
 		assertSame(FORECAST2_FROM_BERGEN, forecastCache.getForecastFor(BERGEN));
 		verify(mockedForecastFetcher, times(2)).fetchForecastFor(BERGEN);
 	}
