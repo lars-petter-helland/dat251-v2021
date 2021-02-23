@@ -31,6 +31,8 @@ public class ForecastCacheTest {
 	private static final Forecast FORECAST2_FROM_BERGEN = new Forecast(BERGEN);
 	private static final Forecast FORECAST_FROM_OSLO = new Forecast(OSLO);
 
+	private static final Timestamp A_TIMESTAMP = new Timestamp("2021-01-01", "12:00:00");
+	
 	// --- Instance variables ------------------------------------------------
 
 	@Mock private ForecastFetcher mockedForecastFetcher;
@@ -53,6 +55,8 @@ public class ForecastCacheTest {
 				.thenReturn(FORECAST1_FROM_BERGEN).thenReturn(FORECAST2_FROM_BERGEN);
 		when(mockedForecastFetcher.fetchForecastFor(OSLO))
 				.thenReturn(FORECAST_FROM_OSLO);
+		when(mockedTimestampService.getTimestamp())
+				.thenReturn(A_TIMESTAMP);
 		when(mockedTimestampService.hasExpired(any(Timestamp.class)))
 				.thenReturn(false);
 	}
@@ -93,12 +97,16 @@ public class ForecastCacheTest {
 		//Fetching one forecast for Bergen and storing in cache
 		forecastCache.getForecastFor(BERGEN);
 		
-		when(mockedTimestampService.hasExpired(any())).thenReturn(true);
+		when(mockedTimestampService.hasExpired(any(Timestamp.class))).thenReturn(true);
 
 		assertSame(FORECAST2_FROM_BERGEN, forecastCache.getForecastFor(BERGEN));
 		verify(mockedForecastFetcher, times(2)).fetchForecastFor(BERGEN);
 	}
 
+	@Test
+	public void forecastIsTimestampedWhenCached() {
+		assertSame(A_TIMESTAMP, forecastCache.getForecastFor(BERGEN).getTimestamp());
+	}
 	
 }
 

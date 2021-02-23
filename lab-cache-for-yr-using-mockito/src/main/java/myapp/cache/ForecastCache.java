@@ -21,6 +21,7 @@ public class ForecastCache {
 		Forecast f = cache.get(location);
 		if (f == null || timestampService.hasExpired(f.getTimestamp())) {
 			f = forecastFetcher.fetchForecastFor(location);
+			f.setTimestamp(timestampService.getTimestamp());
 			cache.put(location, f);
 		}
 		return f;
